@@ -21,11 +21,7 @@ class HomesController < ApplicationController
       :site   => 'http://localhost:3002',
       :logger => Logger.new('example.log', 'weekly')
     )
-    unless session[:token].present?
-      session[:token] = client.auth_code.get_token(params[:code], :redirect_uri => 'http://localhost:3007/oauth/callback')
-    end
-
-    token = OAuth2::AccessToken.from_hash(client, session[:token])
+    token = client.auth_code.get_token(params[:code], :redirect_uri => 'http://localhost:3007/oauth/callback')
 
     @response = token.get('http://localhost:3002/api/v2/labs')
     
