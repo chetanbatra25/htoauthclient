@@ -21,9 +21,9 @@ class HomesController < ApplicationController
       :site   => 'http://localhost:3002',
       :logger => Logger.new('example.log', 'weekly')
     )
-    token = client.auth_code.get_token(params[:code], :redirect_uri => 'http://localhost:3007/oauth/callback')
+    @token = client.auth_code.get_token(params[:code], :redirect_uri => 'http://localhost:3007/oauth/callback')
 
-    @response = token.get('http://localhost:3002/api/v2/labs')
+    @response = @token.get('http://localhost:3002/api/v2/labs')
     
   end
 
